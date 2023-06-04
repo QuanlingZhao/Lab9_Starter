@@ -5,6 +5,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "dd44552bb179496a8ca763793b2bcca0"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
   <title>Lab 9</title>
 
   <style>
@@ -95,13 +103,133 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(err) {
+        console.error(err);
+        output.innerHTML = "Error";
+      }
+      finally {
+        console.log("Handled");
+      }
+    
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
+
+
+
     // Start your code here
     // You may move this JS to another file if you wish
+
+    
+    
+    errorBtns[0].addEventListener('click', () => {
+      console.log("Console Log Demo");
+    });
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error("Console Error Demo");
+    });
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count("Console Count Demo");
+    });
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn("Console Warn Demo");
+    });
+
+    errorBtns[4].addEventListener('click', () => {
+      console.assert(3 % 2 === 0, "Console Assert Demo");
+    });
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    });
+
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(form);
+    });
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(form);
+    });
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group("group");
+      console.log("Fist Message");
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.log("Second Message");
+      console.groupEnd("group");
+    });
+
+    errorBtns[10].addEventListener('click', () => {
+      console.table(["HTML", "JS", "css"]);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time('Timer');
+    });
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd('Timer');
+    });
+
+    errorBtns[13].addEventListener('click', () => {
+      function Func1() {
+        Func2();
+      }
+
+      function Func2() {
+        console.trace();
+      }
+
+      Func1();
+    });
+
+
+    errorBtns[14].addEventListener('click', () => {
+      function error_func () {
+        errorBtns[20].click();  // access non-exist web component
+      }
+      try {
+        error_func();
+      }
+      catch(err) {
+        console.error(err);
+      }
+      finally {
+        console.log("Error handled");
+      }
+      TrackJS.track('Global Track: TrackJS');
+    });
+
+
+    window.onerror = function (m, u, l, c, e) {
+      console.error("An error has occured");
+    }
+
+    class customError extends Error {
+      constructor(message) {
+        super(message); 
+        this.name = "customError";
+      }
+    }
+    function cError() {
+      throw new customError("Thie is a custom error!");
+    }
+    cError();
+
+
+
+
+
+
   </script>
 </body>
 
